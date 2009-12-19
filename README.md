@@ -14,89 +14,89 @@ pmxdr responses sometimes include error codes if the request was denied. libxdr 
 
 ### Very simple get responseText
 
-<pre>var request = new XDR();
-request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
-request.onload = function() {
-    alert(this.responseText);
-}
-request.send();</pre>
+    var request = new XDR();
+    request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
+    request.onload = function() {
+        alert(this.responseText);
+    }
+    request.send();
 
 ### Getting the "example" attribute from some XML
 
 This exmple demonstrates a working responseXML and setting the onload handler.
 
-<pre>var request = new XDR();
-request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
-request.onload = function() {
-    alert(this.responseXML.documentElement.getAttribute("example"));
-    // alerts "blah"
-};
-request.send();</pre>
+    var request = new XDR();
+    request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
+    request.onload = function() {
+        alert(this.responseXML.documentElement.getAttribute("example"));
+        // alerts "blah"
+    };
+    request.send();
 
 ### onreadystatechange, Content-Type, responseText.length, and ontimeout
 
-<pre>var request = new XDR();
-request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
-request.timeout = 5000; // timeout after 5 seconds (5000ms)
-request.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        alert(this.responseText.length); // alerts 120
-        alert(this.contentType); // alerts "text/xml"
-    }
-};
-request.ontimeout = function() {
-    alert("Is your Internet connection connection always this slow?")
-};
-request.send();</pre>
+    var request = new XDR();
+    request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
+    request.timeout = 5000; // timeout after 5 seconds (5000ms)
+    request.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText.length); // alerts 120
+            alert(this.contentType); // alerts "text/xml"
+        }
+    };
+    request.ontimeout = function() {
+        alert("Is your Internet connection connection always this slow?")
+    };
+    request.send();
 
 ### getResponseHeader
 
-<pre>var request = new XDR();
-request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
-request.onload = function() {
-    alert(this.getResponseHeader("X-Foo")); // alerts "bar"
-};
-request.send();</pre>
+    var request = new XDR();
+    request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
+    request.onload = function() {
+        alert(this.getResponseHeader("X-Foo")); // alerts "bar"
+    };
+    request.send();
 
 ### A simple POST request
 
-<pre>var request = new XDR();
-request.open("POST", "http://code.eligrey.com/pmxdr/libxdr/example2.php");
-request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-request.onload = function() {
-    alert(this.responseText); // alerts "foo is bar"
-};
-request.send("foo=bar");</pre>
+    var request = new XDR();
+    request.open("POST", "http://code.eligrey.com/pmxdr/libxdr/example2.php");
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.onload = function() {
+        alert(this.responseText); // alerts "foo is bar"
+    };
+    request.send("foo=bar");
 
 ### Aborting a request
 
-<pre>var request = new XDR();
-request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
-request.onload = function() {
-    alert("You shouldn't see this.");
-}
-request.send();
-request.abort();</pre>
+    var request = new XDR();
+    request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example.php");
+    request.onload = function() {
+        alert("You shouldn't see this.");
+    }
+    request.send();
+    request.abort();
 
 ### onerror handling an invalid request method
 
 In this example, a resource which only allows the POST request method is requested using the GET method. This will cause an error and give an HTTP 405 Method Not Allowed status code.
 
-<pre>var request = new XDR();
-request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example2.php");
-request.onerror = function() {
-    alert("HTTP status response is " + this.status + " " + this.statusText);
-}
-request.send();</pre>
+    var request = new XDR();
+    request.open("GET", "http://code.eligrey.com/pmxdr/libxdr/example2.php");
+    request.onerror = function() {
+        alert("HTTP status response is " + this.status + " " + this.statusText);
+    }
+    request.send();
 
 ### Getting all response headers with a HEAD request
 
-<pre>var request = new XDR();
-request.open("HEAD", "http://code.eligrey.com/pmxdr/libxdr/example.php");
-request.onload = function() {
-    alert(this.getAllResponseHeaders());
-}
-request.send();</pre>
+    var request = new XDR();
+    request.open("HEAD", "http://code.eligrey.com/pmxdr/libxdr/example.php");
+    request.onload = function() {
+        alert(this.getAllResponseHeaders());
+    }
+    request.send();
 
  [1]: http://github.com/eligrey/pmxdr
  [2]: http://www.w3.org/TR/XMLHttpRequest/
