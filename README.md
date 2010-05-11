@@ -98,6 +98,10 @@ In this example, a resource which only allows the POST request method is request
     }
     request.send();
 
+
+![Tracking image](//in.getclicky.com/212712ns.gif =1x1)
+
+
  [1]: http://github.com/eligrey/pmxdr
  [2]: http://www.w3.org/TR/XMLHttpRequest/
  [3]: https://developer.mozilla.org/En/HTTP_access_control
