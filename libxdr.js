@@ -8,6 +8,8 @@
 @author Eli Grey, http://eligrey.com
 */
 
+/*! @source http://purl.eligrey.com/github/libxdr/blob/master/libxdr.js*/
+
 if (!this.XDR) {
   this.XDR = new Function();
   
