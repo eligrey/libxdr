@@ -88,7 +88,11 @@ if (!this.XDR) {
         instance.responseXML = xmlDocument;
         
         instance.responseText = response.data;
-        
+       
+        if (!response.headers) {
+          response.headers = {};
+        }
+
         instance.contentType = response.headers["content-type"];
            
         var headers = [];
