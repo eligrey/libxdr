@@ -99,7 +99,7 @@ In this example, a resource which only allows the POST request method is request
     request.send();
 
 
-![Tracking image](//in.getclicky.com/212712ns.gif)
+![Tracking image](https://in.getclicky.com/212712ns.gif)
 
 
  [1]: http://github.com/eligrey/pmxdr
