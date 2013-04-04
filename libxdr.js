@@ -42,16 +42,21 @@ if (!this.XDR) {
         instance.readyState = 4; // for onreadystatechange
       
         if (response.error) {
-          if (response.error == "DISALLOWED_REQUEST_METHOD") {
+          if (response.error == "LOAD_ERROR") {
+            instance.status = 502; // 502 Bad Gateway (seems reasonable when response.status is not set)
+            instance.statusText = "Bad Gateway";
+          }
+            
+          else if (response.error == "DISALLOWED_REQUEST_METHOD") {
             instance.status = 405; // 405 Method Not Allowed
             instance.statusText = "Method Not Allowed";
           }
-    
+        
           else if (response.error == "TIMEOUT") {
             instance.status = 408; // 408 Request Timeout
             instance.statusText = "Request Timeout";
           }
-          
+              
           else if (response.error == "DISALLOWED_ORIGIN") {
             instance.status = 412; // 412 Precondition Failed (seems right for disallowed origin)
             instance.statusText = "Precondition Failed";
