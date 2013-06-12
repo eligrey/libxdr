@@ -19,12 +19,6 @@ if (!this.XDR) {
     open: function (method, uri, async) {
     if (async === false)
       throw new RangeError("XDR.open: libxdr does not support synchronous requests.");
-    
-      this._request = { // request object for pmxdr.request
-        method : method,
-        uri    : uri,
-        headers: {}
-      }
     },
       
     setRequestHeader: function(header, value) {
@@ -114,10 +108,6 @@ if (!this.XDR) {
           return response.headers[header.toLowerCase()] || null;
         }
           
-          
-        if (instance.timeout) instance._request.timeout = instance.timeout;
-        else if(XDR.defaultTimeout) instance._request.timeout = XDR.defaultTimeout;
-          
         if (typeof instance.onreadystatechange == "function")
           instance.onreadystatechange();
         if (typeof instance.onprogress == "function")
@@ -126,8 +116,10 @@ if (!this.XDR) {
           instance.onload();
          
       };
-        
-        
+      
+      if (instance.timeout) instance._request.timeout = instance.timeout;
+      else if (XDR.defaultTimeout) instance._request.timeout = XDR.defaultTimeout;
+      
       // do the request and get the abort method
       var aborter = pmxdr.request(instance._request).abort;
         
