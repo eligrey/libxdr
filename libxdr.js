@@ -17,8 +17,14 @@ if (!this.XDR) {
   XDR.prototype = {
   
     open: function (method, uri, async) {
-    if (async === false)
-      throw new RangeError("XDR.open: libxdr does not support synchronous requests.");
+      if (async === false)
+        throw new RangeError("XDR.open: libxdr does not support synchronous requests.");
+
+      this._request = { // request object for pmxdr.request
+        method : method,
+        uri    : uri,
+        headers: {}
+      }
     },
       
     setRequestHeader: function(header, value) {
