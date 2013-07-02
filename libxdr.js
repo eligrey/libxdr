@@ -72,7 +72,7 @@ if (!this.XDR) {
             instance.status = 200; // pmxdr host wouldn't respond unless the status was 200 so default to it
         
         
-        if (typeof instance.onerror == "function" && response.error)
+        if (typeof instance.onerror == "function" && (response.error || response.status >= 400))
           return instance.onerror();
         
         if (typeof instance.ontimeout == "function" && instance.status == 408)
