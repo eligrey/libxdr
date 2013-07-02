@@ -79,12 +79,8 @@ if (!this.XDR) {
             return instance.onerror();
         }
         
-        if (instance.status == 408) {
-          if (typeof instance.onloadend == "function")
-            instance.onloadend();
-          if (typeof instance.ontimeout == "function")
+        if (instance.status == 408 && typeof instance.ontimeout == "function")
             return instance.ontimeout();
-        }
     
         var xmlDocument = null; // parse response.data and simulate responseXML
         try {
