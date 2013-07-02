@@ -72,16 +72,18 @@ if (!this.XDR) {
             instance.status = 200; // pmxdr host wouldn't respond unless the status was 200 so default to it
         
         
-        if (typeof instance.onerror == "function" && (response.error || response.status >= 400)) {
+        if (response.error || response.status >= 400) {
           if (typeof instance.onloadend == "function")
             instance.onloadend();
-          return instance.onerror();
+          if (typeof instance.onerror == "function")
+            return instance.onerror();
         }
         
-        if (typeof instance.ontimeout == "function" && instance.status == 408) {
+        if (instance.status == 408) {
           if (typeof instance.onloadend == "function")
             instance.onloadend();
-          return instance.ontimeout();
+          if (typeof instance.ontimeout == "function")
+            return instance.ontimeout();
         }
     
         var xmlDocument = null; // parse response.data and simulate responseXML
