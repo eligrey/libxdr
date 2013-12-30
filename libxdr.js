@@ -10,7 +10,7 @@
 /*! @source http://purl.eligrey.com/github/libxdr/blob/master/libxdr.js*/
 
 if (!this.XDR) {
-  this.XDR = new Function();
+  this.XDR = function () {};
   
   //XDR.defaultTimeout = 10000; // default timeout; 10000 is IE8's default for similar XDomainRequest
 
@@ -82,22 +82,6 @@ if (!this.XDR) {
         if (instance.status == 408 && typeof instance.ontimeout == "function")
             return instance.ontimeout();
     
-        var xmlDocument = null; // parse response.data and simulate responseXML
-        try {
-          xmlDocument = (new DOMParser()).parseFromString(response.data, "application/xml");
-        } catch(e) {
-          try {
-            xmlDocument = new ActiveXObject("Microsoft.XMLDOM");
-            xmlDocument.loadXML(response.data);
-          } catch(e) {
-            xmlDocument = null;
-          }
-        }
-          
-        instance.responseXML = xmlDocument;
-        
-        instance.responseText = response.data;
-       
         if (!response.headers) {
           response.headers = {};
         }
@@ -117,6 +101,29 @@ if (!this.XDR) {
         instance.getResponseHeader = function(header) {
           return response.headers[header.toLowerCase()] || null;
         }
+
+        var xml;
+        if (/\/xml$/i.test(instance.contentType) || response.data.substr(0, 5) == '<?xml') {
+          try {
+              if (window.DOMParser) { // Standard
+                  xml = (new DOMParser()).parseFromString(response.data, "text/xml");
+              } else { // IE
+                  xml = new ActiveXObject("Microsoft.XMLDOM");
+                  xml.async = "false";
+                  xml.loadXML(data);
+              }
+          } catch (e) {
+              xml = undefined;
+          }
+
+          if (!xml || !xml.documentElement || xml.getElementsByTagName("parsererror").length) {
+              xml = undefined;
+          }
+        }
+
+        instance.responseXML = xml;
+
+        instance.responseText = response.data;
           
         if (typeof instance.onreadystatechange == "function")
           instance.onreadystatechange();
