@@ -1,0 +1,21 @@
+{
+  "name": "ft-xdr",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Financial-Times/ft-xdr",
+  "authors": [
+    "Rhys Evans <rhys.evans@ft.com>"
+  ],
+  "description": "Preconfigured cos polyfill for ft sites",
+  "main": "dist/main.js",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
