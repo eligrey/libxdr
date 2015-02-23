@@ -8,9 +8,7 @@
 
 /*! @source http://purl.eligrey.com/github/pmxdr/blob/master/pmxdr-client.js*/
 
-(function() {
-
-	var window = this;
+(function(window) {
 
 	if (typeof window.opera != "undefined" && parseInt(window.opera.version()) == 9) // Opera 9.x MessageEvent.origin fix (only for http:, not https:)
 			Event.prototype.__defineGetter__("origin", function(){
@@ -222,4 +220,4 @@
 	}
 
 	window.pmxdr = pmxdr;
-})();
+})(window);

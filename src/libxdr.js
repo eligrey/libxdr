@@ -9,13 +9,13 @@
 
 /*! @source http://purl.eligrey.com/github/libxdr/blob/master/libxdr.js*/
 
-if (!this.XDR) {
-  this.XDR = function () {};
-  
+if (!window.XDR) {
+  window.XDR = function () {};
+
   //XDR.defaultTimeout = 10000; // default timeout; 10000 is IE8's default for similar XDomainRequest
 
   XDR.prototype = {
-  
+
     open: function (method, uri, async) {
       if (async === false)
         throw new RangeError("XDR.open: libxdr does not support synchronous requests.");
@@ -26,37 +26,37 @@ if (!this.XDR) {
         headers: {}
       }
     },
-      
+
     setRequestHeader: function(header, value) {
       this._request.headers[header.toLowerCase()] = value;
     },
-    
+
     removeRequestHeader: function(header) {
       delete this._request.headers[header.toLowerCase()];
     },
-      
+
     send: function (data) {
       var instance = this; // for minification & reference to this
       instance._request.data = data;
       instance._request.callback = function(response) {
         instance.readyState = 4; // for onreadystatechange
-      
+
         if (response.error) {
           if (response.error == "LOAD_ERROR") {
             instance.status = 502; // 502 Bad Gateway (seems reasonable when response.status is not set)
             instance.statusText = "Bad Gateway";
           }
-            
+
           else if (response.error == "DISALLOWED_REQUEST_METHOD") {
             instance.status = 405; // 405 Method Not Allowed
             instance.statusText = "Method Not Allowed";
           }
-        
+
           else if (response.error == "TIMEOUT") {
             instance.status = 408; // 408 Request Timeout
             instance.statusText = "Request Timeout";
           }
-              
+
           else if (response.error == "DISALLOWED_ORIGIN") {
             instance.status = 412; // 412 Precondition Failed (seems right for disallowed origin)
             instance.statusText = "Precondition Failed";
@@ -67,37 +67,37 @@ if (!this.XDR) {
           if (response.statusText)
             instance.statusText = response.statusText;
         }
-    
+
           if (!instance.status)
             instance.status = 200; // pmxdr host wouldn't respond unless the status was 200 so default to it
-        
-        
+
+
         if (response.error || instance.status >= 400) {
           if (typeof instance.onloadend == "function")
             instance.onloadend();
           if (typeof instance.onerror == "function")
             return instance.onerror();
         }
-        
+
         if (instance.status == 408 && typeof instance.ontimeout == "function")
             return instance.ontimeout();
-    
+
         if (!response.headers) {
           response.headers = {};
         }
 
         instance.contentType = response.headers["content-type"];
-           
+
         var headers = [];
         for (var header in response.headers) // recreate the getAllResponseHeaders string
           if (response.headers.hasOwnProperty(header))
             headers.push(header + ": " + response.headers[header]);
-       
+
         headers = headers.join("\r\n");
         instance.getAllResponseHeaders = function() {
           return headers;
         }
-        
+
         instance.getResponseHeader = function(header) {
           return response.headers[header.toLowerCase()] || null;
         }
@@ -124,7 +124,7 @@ if (!this.XDR) {
         instance.responseXML = xml;
 
         instance.responseText = response.data;
-          
+
         if (typeof instance.onreadystatechange == "function")
           instance.onreadystatechange();
         if (typeof instance.onprogress == "function")
@@ -133,20 +133,20 @@ if (!this.XDR) {
           instance.onload();
         if (typeof instance.onloadend == "function")
           instance.onloadend();
-         
+
       };
-      
+
       if (instance.timeout) instance._request.timeout = instance.timeout;
       else if (XDR.defaultTimeout) instance._request.timeout = XDR.defaultTimeout;
-      
+
       // do the request and get the abort method
       var aborter = pmxdr.request(instance._request).abort;
-        
+
       instance.abort = function() {
         aborter();
       };
     },
-  
+
     abort: function() { // default abort
       delete this._request;
     }

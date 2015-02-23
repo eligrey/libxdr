@@ -28,26 +28,6 @@ var alwaysTrustedOrigins = [
 
 */
 
-/* The following code blocks implement JSON.parse as pulled from
- *     https://code.google.com/p/json-sans-eval/
- * because it's safer than using eval() and JSON.stringify from json2.js in
- *     https://github.com/douglascrockford/JSON-js
- * The code's been minified.  If you don't trust these sections of code,
- * replace them with your own JSON.parse and JSON.stringify.
- */
-if (typeof JSON !== 'object') {
-	this.JSON = {};
-}
-
-/*jslint evil:true*/  // Get around jslint's warning about eval
-if (!JSON.parse) {
-	eval('JSON.parse=function(){function e(e,r,t){return r?i[r]:String.fromCharCode(parseInt(t,16))}var r="(?:-?\\\\b(?:0|[1-9][0-9]*)(?:\\\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\\\\b)",t=\'(?:[^\\\\0-\\\\x08\\\\x0a-\\\\x1f"\\\\\\\\]|\\\\\\\\(?:["/\\\\\\\\bfnrt]|u[0-9A-Fa-f]{4}))\';t=\'(?:"\'+t+\'*")\';var a=RegExp("(?:false|true|null|[\\\\{\\\\}\\\\[\\\\]]|"+r+"|"+t+")","g"),n=RegExp("\\\\\\\\(?:([^u])|u(.{4}))","g"),i={\'"\':\'"\',"/":"/","\\\\":"\\\\",b:"\\b",f:"\\f",n:"\\n",r:"\\r",t:"	"},f=new String(""),l=Object.hasOwnProperty;return function(r,t){r=r.match(a);var i,o=r[0],h=!1;"{"===o?i={}:"["===o?i=[]:(i=[],h=!0);for(var s,c=[i],u=1-h,g=r.length;g>u;++u){o=r[u];var v;switch(o.charCodeAt(0)){default:v=c[0],v[s||v.length]=+o,s=void 0;break;case 34:if(o=o.substring(1,o.length-1),-1!==o.indexOf("\\\\")&&(o=o.replace(n,e)),v=c[0],!s){if(!(v instanceof Array)){s=o||f;break}s=v.length}v[s]=o,s=void 0;break;case 91:v=c[0],c.unshift(v[s||v.length]=[]),s=void 0;break;case 93:c.shift();break;case 102:v=c[0],v[s||v.length]=!1,s=void 0;break;case 110:v=c[0],v[s||v.length]=null,s=void 0;break;case 116:v=c[0],v[s||v.length]=!0,s=void 0;break;case 123:v=c[0],c.unshift(v[s||v.length]={}),s=void 0;break;case 125:c.shift()}}if(h){if(1!==c.length)throw Error();i=i[0]}else if(c.length)throw Error();if(t){var b=function(e,r){var a=e[r];if(a&&"object"==typeof a){var n=null;for(var i in a)if(l.call(a,i)&&a!==e){var f=b(a,i);void 0!==f?a[i]=f:(n||(n=[]),n.push(i))}if(n)for(i=n.length;--i>=0;)delete a[n[i]]}return t.call(e,r,a)};i=b({"":i},"")}return i}}();');
-}
-if (!JSON.stringify) {
-	eval('(function(){function t(t){return 10>t?"0"+t:t}function e(t){return u.lastIndex=0,u.test(t)?\'"\'+t.replace(u,function(t){var e=i[t];return"string"==typeof e?e:"\\\\u"+("0000"+t.charCodeAt(0).toString(16)).slice(-4)})+\'"\':\'"\'+t+\'"\'}function n(t,u){var i,p,s,c,l,a=o,y=u[t];switch(y&&"object"==typeof y&&"function"==typeof y.toJSON&&(y=y.toJSON(t)),"function"==typeof f&&(y=f.call(u,t,y)),typeof y){case"string":return e(y);case"number":return isFinite(y)?y+"":"null";case"boolean":case"null":return y+"";case"object":if(!y)return"null";if(o+=r,l=[],"[object Array]"===Object.prototype.toString.apply(y)){for(c=y.length,i=0;c>i;i+=1)l[i]=n(i,y)||"null";return s=0===l.length?"[]":o?"[\\n"+o+l.join(",\\n"+o)+"\\n"+a+"]":"["+l.join(",")+"]",o=a,s}if(f&&"object"==typeof f)for(c=f.length,i=0;c>i;i+=1)"string"==typeof f[i]&&(p=f[i],s=n(p,y),s&&l.push(e(p)+(o?": ":":")+s));else for(p in y)Object.prototype.hasOwnProperty.call(y,p)&&(s=n(p,y),s&&l.push(e(p)+(o?": ":":")+s));return s=0===l.length?"{}":o?"{\\n"+o+l.join(",\\n"+o)+"\\n"+a+"}":"{"+l.join(",")+"}",o=a,s}}"function"!=typeof Date.prototype.toJSON&&(Date.prototype.toJSON=function(){return isFinite(this.valueOf())?this.getUTCFullYear()+"-"+t(this.getUTCMonth()+1)+"-"+t(this.getUTCDate())+"T"+t(this.getUTCHours())+":"+t(this.getUTCMinutes())+":"+t(this.getUTCSeconds())+"Z":null},String.prototype.toJSON=Number.prototype.toJSON=Boolean.prototype.toJSON=function(){return this.valueOf()});var o,r,f,u=/[\\\\\\"\\x00-\\x1f\\x7f-\\x9f\\u00ad\\u0600-\\u0604\\u070f\\u17b4\\u17b5\\u200c-\\u200f\\u2028-\\u202f\\u2060-\\u206f\\ufeff\\ufff0-\\uffff]/g,i={"\\b":"\\\\b","	":"\\\\t","\\n":"\\\\n","\\f":"\\\\f","\\r":"\\\\r",\'"\':\'\\\\"\',"\\\\":"\\\\\\\\"};JSON.stringify=function(t,e,u){var i;if(o="",r="","number"==typeof u)for(i=0;u>i;i+=1)r+=" ";else"string"==typeof u&&(r=u);if(f=e,e&&"function"!=typeof e&&("object"!=typeof e||"number"!=typeof e.length))throw Error("JSON.stringify");return n("",{"":t})}})();');
-}
-/*jslint evil:false*/
-
 /*global Event, window, XMLHttpRequest*/
 (function (undef) {
 	'use strict';
