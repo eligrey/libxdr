@@ -33,7 +33,7 @@ var alwaysTrustedOrigins = [
 	'use strict';
 
 	var alwaysTrustedOrigins = [
-		/^https?:\/\/[a-z\-]\.ft\.com$/i
+		/^https?:\/\/[\w\-]+\.ft\.com$/i
 	];
 
 

@@ -1,0 +1,11 @@
+deploy:
+  provider: npm
+  email: wheresrhys@gmail.com
+  before_deploy:
+    - npm-prepublish --verbose
+  api_key:
+    secure: P86AHNEkFqgAdxHRJ1tUtHu1bW4NE+6KJoaoDjQI7EzAGryMuCZce1dC7HVxXlA+yk+UxoHEIZn7syuXTRqX7ZIwGrwqML5bAsDFF+NRJ1MwMhEvIIkgKt8DpWwbsMXuZJ0e186SJwk/QMHjZCBBRY1d+TK1ON0wj+D82FsUNiw=
+  on:
+    all_branches: true
+    tags: true
+    repo: Financial-Times/ft-xdr
