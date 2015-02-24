@@ -1,17 +1,15 @@
 {
   "name": "ft-xdr",
   "version": "0.0.0",
-  "description": "A self-contained, pre-configured implementation of [libxdr](https://github.com/eligrey/libxdr) that polyfills cors in ie9 (and ie8 if it's ever needed);",
+  "description": "Cross browser server side cors tools",
   "main": "index.js",
-  "dependencies": {
-    "browserify": "^9.0.3",
-    "uglify-js": "^2.4.16"
-  },
   "devDependencies": {
     "browserify": "^9.0.3",
+    "npm-prepublish": "^1.2.0",
     "uglify-js": "^2.4.16"
   },
   "scripts": {
+    "release": "npm-prepublish --verbose && npm publish && git checkout package.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/Financial-Times/ft-xdr/issues"
   },
-  "homepage": "https://github.com/Financial-Times/ft-xdr"
+  "homepage": "https://github.com/Financial-Times/ft-xdr",
+  "dependencies": {
+    "express": "^4.12.0"
+  }
 }

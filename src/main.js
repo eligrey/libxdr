@@ -2,6 +2,6 @@
 
 require('./pmxdr-host');
 require('./pmxdr-client');
-window.XHTMLHttpRequest = require('./libxdr');
+window.XMLHttpRequest = require('./libxdr');
 
 typeof ftXDRLoaded==='function' && ftXDRLoaded();
