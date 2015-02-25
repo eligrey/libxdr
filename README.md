@@ -10,7 +10,7 @@ Create a route `/pmxdr/api` that points to a html file that loads `//next.ft.com
 var ftXDR = require('ft-xdr');
 ftXDR.addTo(app, {
     routers: [optional array of routers to restrict cors headers to] (Default: app),
-    libUrl: Location of the client side xdr library to use. Can be a url or the string 'local', which will load the library from the same domain as the api (Default: //next.ft.com/assets/ft-xdr.js - if you're not using this module on a next FT site please don't use this default)
+    libUrl: Location of the server side xdr library to use. (Default: //next.ft.com/assets/ft-xdr/host.js - if you're not using this module on a next FT site please don't use this default)
 })
 
 ### In the client

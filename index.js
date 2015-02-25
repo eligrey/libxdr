@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 
 var allowCrossDomain = function(req, res, next) {
@@ -18,17 +20,22 @@ module.exports = {
             next();
         });
 
-        var libUrl = conf.libUrl || (conf.libUrl === 'local' ? '/pmxdr/lib' : '//next.ft.com/assets/ft-xdr.js');
+        var hostLibUrl = conf.hostLibUrl || '//next.ft.com/assets/ft-xdr/host.min.js';
         // ie9 cors polyfill
         pmxdr.get('/api', function (req, res) {
-            res.send('<!DOCTYPE html><html><head><script src="' + libUrl + '"></script></head><body></body></html>')
+            res.send('<!DOCTYPE html><html><head><script src="' + hostLibUrl + '"></script></head><body></body></html>')
         });
 
         // Provide a copy of the client side js lib
-        var libContent = require('fs').readFileSync(__dirname + 'dist/main.js')
+        var hostLib = require('fs').readFileSync(__dirname + 'dist/host.min.js')
+        var clientLib = require('fs').readFileSync(__dirname + 'dist/client.min.js')
 
-        pmxdr.get('/lib', function (req, res) {
-            res.send(libContent);
+        pmxdr.get('/lib/host', function (req, res) {
+            res.send(hostLib);
+        });
+
+        pmxdr.get('/lib/client', function (req, res) {
+            res.send(clientLib);
         });
 
         app.use('/pmxdr', pmxdr);
