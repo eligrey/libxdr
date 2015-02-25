@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Financial-Times/ft-xdr",
   "dependencies": {
+    "cors": "^2.5.3",
     "express": "^4.12.0"
   }
 }

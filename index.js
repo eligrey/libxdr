@@ -1,14 +1,7 @@
 'use strict';
 
 var express = require('express');
-
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'X-FT-UID, Content-Type, X-FT-SESSION');
-    next();
-};
+var cors = require('cors');
 
 module.exports = {
     addTo: function (app, conf) {
@@ -26,9 +19,9 @@ module.exports = {
             res.send('<!DOCTYPE html><html><head><script src="' + hostLibUrl + '"></script></head><body></body></html>')
         });
 
-        // Provide a copy of the client side js lib
-        var hostLib = require('fs').readFileSync(__dirname + 'dist/host.min.js')
-        var clientLib = require('fs').readFileSync(__dirname + 'dist/client.min.js')
+        // Provide a copy of the js libraries just in case
+        var hostLib = require('fs').readFileSync(__dirname + '/dist/host.min.js')
+        var clientLib = require('fs').readFileSync(__dirname + '/dist/client.min.js')
 
         pmxdr.get('/lib/host', function (req, res) {
             res.send(hostLib);
@@ -43,7 +36,7 @@ module.exports = {
         var routers = conf.routers || [app];
 
         routers.forEach(function (router) {
-            router.use(allowCrossDomain);
+            router.use(cors(conf.corsOptions));
         });
     }
 }
