@@ -34,9 +34,11 @@ module.exports = {
         app.use('/pmxdr', pmxdr);
 
         var routers = conf.routers || [app];
+        var configuredCors = cors(conf.corsOptions);
 
         routers.forEach(function (router) {
-            router.use(cors(conf.corsOptions));
+            router.use(configuredCors);
+            router.options('*', configuredCors);
         });
     }
-}
+};
