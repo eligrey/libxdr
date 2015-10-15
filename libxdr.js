@@ -3,7 +3,7 @@
 @requires pmxdr client library, http://code.eligrey.com/pmxdr/client/
 @archive http://code.eligrey.com/pmxdr/libxdr/
 @desc Implements XDR cross-domain request constructor using the pmxdr client library
-@license X11/MIT
+@license MIT
 @author Eli Grey, http://eligrey.com
 */
 
